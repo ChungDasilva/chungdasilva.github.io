@@ -9,7 +9,7 @@ $.ajax({
   data: {
     ident: "chungdasilva",
     secret: "4e8ff9e8-788b-11e9-9e32-0242ac110003",
-    domain: "chungdasilva.github.io",
+    domain: "chungdasilva",
     application: "default",
     room: "default",
     secure: 1
