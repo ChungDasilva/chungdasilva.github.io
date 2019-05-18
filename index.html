@@ -28,7 +28,7 @@
 
     function create() {
         // PeerJS object
-        peer = new Peer({ key: 'lwjd5qra8257b9',port: 443, host: "0.peerjs.com", secure: true, initiator: true, debug: 3, config: ice.iceServers});
+        peer = new Peer({ key: 'lwjd5qra8257b9', initiator: true, debug: 3, config: ice.iceServers});
         console.log(peer);
         peer.on('open', function(){
             $('#my-id').text(peer.id);
