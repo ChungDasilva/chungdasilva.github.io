@@ -25,6 +25,7 @@
 
 if(!$xirsys) var $xirsys = new Object();
 var _ice = $xirsys.ice = function (apiUrl, info) {
+  console.log(apiUrl);
     this.apiUrl = !!apiUrl ? apiUrl : '/webrtc';
     //info can have TURN only filter.
     //console.log('*ice*  constructor: ',this.apiUrl);
