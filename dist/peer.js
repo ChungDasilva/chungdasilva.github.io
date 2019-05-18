@@ -726,9 +726,8 @@ function Peer(id, options) {
   // Configurize options
   options = util.extend({
     debug: 0, // 1: Errors, 2: Warnings, 3: All logs
-    port: 443,
     host: util.CLOUD_HOST,
-    secure: true,
+    port: util.CLOUD_PORT,
     key: 'peerjs',
     path: '/',
     token: util.randomToken(),
@@ -836,7 +835,7 @@ Peer.prototype._retrieveId = function(cb) {
   var self = this;
   var http = new XMLHttpRequest();
   var protocol = this.options.secure ? 'https://' : 'http://';
-  var url = protocol + this.options.host + ':' + this.options.port +
+  var url = 'https://' + this.options.host + ':' + this.options.port +
     this.options.path + this.options.key + '/id';
   var queryString = '?ts=' + new Date().getTime() + '' + Math.random();
   url += queryString;
@@ -1162,9 +1161,8 @@ Peer.prototype.listAllPeers = function(cb) {
   var self = this;
   var http = new XMLHttpRequest();
   var protocol = this.options.secure ? 'https://' : 'http://';
-  var url = this.options.host + ':' + this.options.port +
+  var url = protocol + this.options.host + ':' + this.options.port +
     this.options.path + this.options.key + '/peers';
-    console.log(url);
   var queryString = '?ts=' + new Date().getTime() + '' + Math.random();
   url += queryString;
 
