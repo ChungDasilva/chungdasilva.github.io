@@ -727,7 +727,8 @@ function Peer(id, options) {
   options = util.extend({
     debug: 0, // 1: Errors, 2: Warnings, 3: All logs
     port: 443,
-    host: "https://0.peerjs.com",
+    host: util.CLOUD_HOST,
+    secure: true,
     key: 'peerjs',
     path: '/',
     token: util.randomToken(),
