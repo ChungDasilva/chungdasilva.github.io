@@ -25,6 +25,7 @@
 
 if(!$xirsys) var $xirsys = new Object();
 var _ice = $xirsys.ice = function (apiUrl, info) {
+  apiUrl = "https://global.xirsys.net/_turn/chungdasilva.github.io";
   console.log(apiUrl);
     this.apiUrl = !!apiUrl ? apiUrl : '/webrtc';
     //info can have TURN only filter.
