@@ -50,6 +50,7 @@ _ice.prototype.doICE = function () {
             own.emit(own.onICEList);
         }
     }
+    console.log(this.apiUrl+"/_turn");
     xhr.open("PUT", this.apiUrl+"/_turn", true);
     xhr.send();
 }
