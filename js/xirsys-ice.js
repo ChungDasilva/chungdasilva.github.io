@@ -53,7 +53,7 @@ _ice.prototype.doICE = function () {
         }
     }
     console.log(this.apiUrl+"/_turn");
-    xhr.open("PUT", this.apiUrl+"/_turn", true);
+    xhr.open("PUT", this.apiUrl, true);
     xhr.send();
 }
 
