@@ -3,6 +3,59 @@ const socket = io('https://video-call-tnt4.herokuapp.com/');
 $('#div-chat').hide();
 
 let customConfig;
+$(function(){
+    // Get Xirsys ICE (STUN/TURN)
+    if(!ice){
+        ice = new $xirsys.ice('/webrtc');
+        ice.on(ice.onICEList, function (evt){
+            console.log('onICE ',evt);
+            if(evt.type == ice.onICEList){
+                create(ice.iceServers);
+            }
+        });
+    }
+});
+
+function create() {
+    // PeerJS object
+    peer = new Peer({ key: 'lwjd5qra8257b9', debug: 3, config: ice.iceServers});
+    peer.on('open', function(){
+        console.log(peer.id);
+        $('#my-id').text(peer.id);
+    });
+    // Receiving a call
+    peer.on('call', function(call){
+        // Answer the call automatically (instead of prompting user) for demo purposes
+        call.answer(window.localStream);
+        step3(call);
+    });
+    peer.on('error', function(err){
+        alert(err.message);
+        // Return to step 2 if error occurs
+        step2();
+    });
+    setup();
+}
+
+function setup() {
+    console.log('ok');
+    // $('#make-call').click(function(){
+    //     // Initiate a call!
+    //     var call = peer.call($('#callto-id').val(), window.localStream);
+    //     step3(call);
+    // });
+    // $('#end-call').click(function(){
+    //     window.existingCall.close();
+    //     step2();
+    // });
+    // // Retry if getUserMedia fails
+    // $('#step1-retry').click(function(){
+    //     $('#step1-error').hide();
+    //     step1();
+    // });
+    // // Get things started
+    // step1();
+}
 
 $.ajax({
   url: "https://service.xirsys.com/ice",
