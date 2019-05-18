@@ -14,7 +14,7 @@
     $(function(){
         // Get Xirsys ICE (STUN/TURN)
         if(!ice){
-            ice = new $xirsys.ice('/webrtc');
+            ice = new $xirsys.ice('https://global.xirsys.net/_turn/chungdasilva.github.io');
             ice.on(ice.onICEList, function (evt){
                 console.log('onICE ',evt);
                 console.log("chung");
