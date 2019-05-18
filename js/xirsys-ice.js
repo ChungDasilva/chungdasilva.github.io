@@ -55,7 +55,7 @@ _ice.prototype.doICE = function () {
     console.log(this.apiUrl+"/_turn");
     xhr.open("PUT", this.apiUrl, true);
     xhr.setRequestHeader ("Authorization", "Basic " + btoa
-("testaccount:092ad88c-e96d-11e6-8a3b-b0db56058b9f") );
+("testaccount:4e8ff9e8-788b-11e9-9e32-0242ac110003") );
     xhr.setRequestHeader ("Content-Type", "application/json");
       xhr.send( JSON.stringify({"format": "urls"}) );
 }
