@@ -54,7 +54,10 @@ _ice.prototype.doICE = function () {
     }
     console.log(this.apiUrl+"/_turn");
     xhr.open("PUT", this.apiUrl, true);
-    xhr.send();
+    xhr.setRequestHeader ("Authorization", "Basic " + btoa
+("testaccount:092ad88c-e96d-11e6-8a3b-b0db56058b9f") );
+    xhr.setRequestHeader ("Content-Type", "application/json");
+      xhr.send( JSON.stringify({"format": "urls"}) );
 }
 
 //check for depricated RTCIceServer url property, needs to be urls now.
