@@ -78,9 +78,10 @@
       // Get audio/video stream
       navigator.getUserMedia({audio: true, video: true}, function(stream){
         // Set your video displays
-        $('#my-video').prop('src', URL.createObjectURL(stream));
+        //$('#my-video').prop('src', URL.createObjectURL(stream));
 
-        window.localStream = stream;
+        //window.localStream = stream;
+        playStream("my-video", stream);
         step2();
       }, function(){ $('#step1-error').show(); });
     }
@@ -108,6 +109,12 @@
       $('#step1, #step2').hide();
       $('#step3').show();
     }
+
+    function playStream(idVideoTag, stream) {
+      const video = document.getElementById(idVideoTag);
+      video.srcObject = stream;
+      video.play();
+  }
 
   </script>
 
