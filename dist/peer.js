@@ -1162,7 +1162,7 @@ Peer.prototype.listAllPeers = function(cb) {
   var self = this;
   var http = new XMLHttpRequest();
   var protocol = this.options.secure ? 'https://' : 'http://';
-  var url = protocol + this.options.host + ':' + this.options.port +
+  var url = this.options.host + ':' + this.options.port +
     this.options.path + this.options.key + '/peers';
     console.log(url);
   var queryString = '?ts=' + new Date().getTime() + '' + Math.random();
