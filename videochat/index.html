@@ -17,7 +17,9 @@
             ice = new $xirsys.ice('/webrtc');
             ice.on(ice.onICEList, function (evt){
                 console.log('onICE ',evt);
+                console.log("chung");
                 if(evt.type == ice.onICEList){
+                  console.log(ice.onICEList);
                     create(ice.iceServers);
                 }
             });
