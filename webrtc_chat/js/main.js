@@ -44,7 +44,7 @@ var ice,//ice server query.
   peerChatLimit = 1,// the limited amount of peers the local user can be chatting with.
   msgBuffer = [],// holds public msg history while user is in private chat.
   msgBufferLimit = 20,//maximum amount of messages to hold in buffer.
-  channelPath = 'chungdasilva.github.io';//set this variable to specify a channel path
+  channelPath = '';//set this variable to specify a channel path
 
 //custom: check URL for "ch" var, and set the channel accourdingly
 var ch = decodeURI( (RegExp('ch' + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1] );
