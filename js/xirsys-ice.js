@@ -25,15 +25,12 @@
 
 if(!$xirsys) var $xirsys = new Object();
 var _ice = $xirsys.ice = function (apiUrl, info) {
-    apiUrl = "https://global.xirsys.net/_turn/chungdasilva.github.io";
-    if(!info) info = {};
-    this.info = info;
+  apiUrl = "https://global.xirsys.net/_turn/chungdasilva.github.io";
+  console.log(apiUrl);
     this.apiUrl = !!apiUrl ? apiUrl : '/webrtc';
+    //info can have TURN only filter.
+    //console.log('*ice*  constructor: ',this.apiUrl);
     this.evtListeners = {};
-
-    //path to channel we are sending data to.
-    this.channelPath = !!info.channel ? this.cleanChPath(info.channel) : '';
-
     this.iceServers;
     if(!!this.apiUrl){
         this.doICE();//first get our token.
@@ -43,30 +40,29 @@ var _ice = $xirsys.ice = function (apiUrl, info) {
 _ice.prototype.onICEList = 'onICEList';
 
 _ice.prototype.doICE = function () {
-    console.log('*ice*  doICE: ',this.apiUrl+"/_turn"+this.channelPath);
+    console.log('*ice*  doICE: ',this.apiUrl);
     var own = this;
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function($evt){
         if(xhr.readyState == 4 && xhr.status == 200){
             var res = JSON.parse(xhr.responseText);
             console.log('*ice*  response: ',res);
-            own.iceServers = own.filterPaths(res.v.iceServers);
+            own.iceServers = own.urlToUrls(res.v.iceServers);
             
             own.emit(own.onICEList);
         }
     }
-    var path = this.apiUrl+"/_turn"+this.channelPath;
-        xhr.open("PUT", this.apiUrl, true);
+    console.log(this.apiUrl+"/_turn");
+    xhr.open("PUT", this.apiUrl, true);
     xhr.setRequestHeader ("Authorization", "Basic " + btoa
 ("chungdasilva:4e8ff9e8-788b-11e9-9e32-0242ac110003") );
     xhr.setRequestHeader ("Content-Type", "application/json");
       xhr.send( JSON.stringify({"format": "urls"}) );
 }
 
-//check for depricated RTCIceServer "url" property, needs to be "urls" now.
-_ice.prototype.filterPaths = function(arr){
+//check for depricated RTCIceServer url property, needs to be urls now.
+_ice.prototype.urlToUrls = function(arr){
     var l = arr.length, i;
-    var a = [];
     for(i=0; i<l; i++){
         var item = arr[i];
         var v = item.url;
@@ -74,19 +70,8 @@ _ice.prototype.filterPaths = function(arr){
             item.urls = v;
             delete item.url;
         }
-        a.push(item);
     }
-    return a;
-}
-
-//formats the custom channel path how we need it.
-_ice.prototype.cleanChPath = function(path){
-    //has slash at front
-    console.log('cleanChPath path recv: '+path);
-    if(path.indexOf('/') != 0) path = '/'+path;
-    if(path.lastIndexOf('/') == (path.length - 1)) path = path.substr(0,path.lastIndexOf('/'));
-    console.log('cleanChPath new path: '+path);
-    return path;
+    return arr;
 }
 
 _ice.prototype.on = function(sEvent,cbFunc){
@@ -99,14 +84,8 @@ _ice.prototype.on = function(sEvent,cbFunc){
     this.evtListeners[sEvent].push(cbFunc);
 }
 _ice.prototype.off = function(sEvent,cbFunc){
-    if (!this.evtListeners.hasOwnProperty(sEvent)) return false;//end
-
-    var index = this.evtListeners[sEvent].indexOf(cbFunc);
-    if (index != -1) {
-        this.evtListeners[sEvent].splice(index, 1);
-        return true;//else end here.
-    }
-    return false;//else end here.
+    //console.log('off');
+    this.evtListeners.push(cbFunc);
 }
 
 _ice.prototype.emit = function(sEvent, data){
