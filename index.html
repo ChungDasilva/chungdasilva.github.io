@@ -28,7 +28,7 @@
 
     function create() {
         // PeerJS object
-        peer = new Peer({ key: 'peerjs', host: 'my-peerchung.herokuapp.com', port: 9000, secure: true,debug: 3, config: ice.iceServers});
+        peer = new Peer({host: 'my-peerchung.herokuapp.com', port: 9000, path: '/myapp', secure: true,debug: 3, config: ice.iceServers});
         // peer = new Peer({ key: 'peerjs', host: 'localhost', port: 9000, path: '/myapp',debug: 3, config: ice.iceServers});
         console.log(peer);
         peer.on('open', function(){
